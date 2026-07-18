@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const controller = require('./controller/app.controller');
-const routes = require('./routes/app.routes');
-require('./models/app.model');
+const controller = require('./controller/task.controller');
+const routes = require('./routes/task.routes');
+require('./models/task.model');
 
 const PORT = process.env.PORT || 3000;
 

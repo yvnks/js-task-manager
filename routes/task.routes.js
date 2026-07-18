@@ -7,7 +7,7 @@ const {
   getTask,
   updateTasks,
   deleteTasks,
-} = require('../controller/app.controller');
+} = require('../controller/task.controller');
 
 router.route('/').get(getTasksFromAPI);
 router

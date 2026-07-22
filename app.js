@@ -1,17 +1,15 @@
 const express = require('express');
-const app = express();
-const controller = require('./controller/task.controller');
 const routes = require('./routes/task.routes');
-const connectDB = require('./models/task.model');
+const { connectDB } = require('./models/task.model');
 require('dotenv').config();
+
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 
 // Setup middleware.
 app.use(express.json());
 app.use('/api/v1/tasks', routes);
-
-app.get('/tasks');
 
 async function init() {
   try {

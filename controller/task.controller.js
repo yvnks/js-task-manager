@@ -1,9 +1,13 @@
+const { Task } = require('../models/task.model');
+
 const getTasksFromAPI = (req, res) => {
-  res.send('all task items...');
+  res.send('Get task from mongo');
 };
 
-const createTasksToAPI = (req, res) => {
-  res.json(req.body);
+const createTasksToAPI = async (req, res) => {
+  const task = await Task.create(req.body);
+  res.status(201).json({ task });
+  task.save();
 };
 
 const getTask = (req, res) => {

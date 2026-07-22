@@ -4,4 +4,14 @@ const connectDB = async (url) => {
   return mongoose.connect(url);
 };
 
-module.exports = connectDB
+const TaskSchema = new mongoose.Schema(
+  {
+    name: String,
+    completed: Boolean,
+  },
+  { timestamps: true },
+);
+
+const Task = mongoose.model('Task', TaskSchema);
+
+module.exports = { connectDB, Task };

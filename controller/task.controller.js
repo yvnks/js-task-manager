@@ -24,11 +24,11 @@ const getTask = async (req, res) => {
     const task = await Task.findById({ _id: id });
 
     if (!task) {
-      return;
+      return res.status(404).json({ error: `No task with ${id} exist` });
     }
     res.status(201).json({ task });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error: 'Invalid ID' });
   }
 };
 

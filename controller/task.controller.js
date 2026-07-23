@@ -21,7 +21,7 @@ const createTasksToAPI = async (req, res) => {
 const getTask = async (req, res) => {
   try {
     const id = req.params.id;
-    const task = await Task.findById(id);
+    const task = await Task.findById({ _id: id });
 
     if (!task) {
       return;

@@ -18,16 +18,32 @@ const createTasksToAPI = async (req, res) => {
   }
 };
 
-const getTask = (req, res) => {
-  res.send('get a single task');
+const getTask = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const task = await Task.findById(id);
+
+    if (!task) {
+      return;
+    }
+    res.status(201).json({ task });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };
 
 const updateTasks = (req, res) => {
   res.send('update tasks');
 };
 
-const deleteTasks = (req, res) => {
-  res.send('delete tasks...');
+const deleteTasks = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const task = await Task.findByIdAndDelete(id);
+    console.log('Deleted successfully');
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };
 
 module.exports = {

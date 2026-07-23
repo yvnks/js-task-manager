@@ -6,8 +6,16 @@ const connectDB = async (url) => {
 
 const TaskSchema = new mongoose.Schema(
   {
-    name: String,
-    completed: Boolean,
+    name: {
+      type: String,
+      required: [true, 'Enter a valid Name'],
+      trim: true,
+      maxlength: [20, 'Cannot be more than 20 Characters'],
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

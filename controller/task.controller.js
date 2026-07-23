@@ -1,13 +1,21 @@
 const { Task } = require('../models/task.model');
 
-const getTasksFromAPI = (req, res) => {
-  res.send('Get task from mongo');
+const getTasksFromAPI = async (req, res) => {
+  try {
+    const task = await Task.find({});
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };
 
 const createTasksToAPI = async (req, res) => {
-  const task = await Task.create(req.body);
-  res.status(201).json({ task });
-  task.save();
+  try {
+    const task = await Task.create(req.body);
+    res.status(201).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 const getTask = (req, res) => {

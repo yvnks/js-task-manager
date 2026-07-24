@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 // Setup middleware.
 app.use(express.json());
 app.use('/api/v1/tasks', routes);
+app.use(express.static('./public'));
 
 async function init() {
   try {

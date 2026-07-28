@@ -1,6 +1,6 @@
-const express = require('express');
-const routes = require('./routes/task.routes');
-const PORT = process.env.PORT || 3000;
+import express from 'express';
+import router from './routes/task.routes.js';
+import * as models from './models/connect.models.js';
 
 const app = express();
 
@@ -9,9 +9,11 @@ app.get('/hello', (req, res) => {
   res.json({ msg: 'Hey hey' });
 });
 
+const PORT = process.env.PORT || 3000;
+
 // Set up middleware
 app.use(express.json());
-app.use('/api/v1/tasks', routes);
+app.use('/api/v1/tasks', router);
 
 app.listen(PORT, () => {
   console.log(

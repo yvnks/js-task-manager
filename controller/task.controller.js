@@ -1,3 +1,5 @@
+import Task from '../models/task.model.js';
+
 export const getAllTasks = (req, res) => {
   res.send('all items from the file...');
 };

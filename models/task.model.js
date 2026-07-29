@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 
-export const TaskSchema = mongoose.Schema({
+const TaskSchema = mongoose.Schema({
   name: {
     type: String,
+    required: [true, 'You need to provide a valid name'],
+    trim: true,
+    length: [20, 'Cannot be more than 20 characters.'],
   },
   completed: {
     type: Boolean,
+    default: false
   },
 });
 

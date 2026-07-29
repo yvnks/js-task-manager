@@ -1,15 +1,20 @@
 import Task from '../models/task.model.js';
 
-export const getAllTasks = (req, res) => {
-  res.send('all items from the file...');
+export const getAllTasks = async(req, res) => {
+  // const data = await Task
+  res.json();
 };
 
-export const createTask = (req, res) => {
-  res.json(req.body);
+export const createTask = async (req, res) => {
+  const task = await Task.create(req.body);
+  res.json(task);
 };
 
-export const getTask = (req, res) => {
-  res.json({ id: req.params.id });
+export const getTask = async (req, res) => {
+  const id = req.params.id;
+  const task = await Task.findById(id);
+  // normalize data by id;
+  res.json(task);
 };
 
 export const updateTask = (req, res) => {

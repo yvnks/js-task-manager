@@ -1,11 +1,8 @@
 import mongoose, { mongo } from 'mongoose';
 
-const connectionString =
-  'mongodb+srv://jjyankson19_db_user:QVqVmo2MicVAnytU@task-manager-api.dwj8sm3.mongodb.net/task_manager_db';
-
-async function connectDB(url) {
+async function connectDB(uri) {
   try {
-    await mongoose.connect(connectionString);
+    await mongoose.connect(uri);
     console.log('connected to db');
   } catch (error) {
     console.log(error);

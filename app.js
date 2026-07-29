@@ -1,13 +1,14 @@
 import express from 'express';
 import router from './routes/task.routes.js';
 import connectDB from './models/connect.models.js';
+import 'dotenv/config';
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const init = async (URL) => {
-  await connectDB();
+const init = async (uri) => {
+  await connectDB(process.env.MONGODB_URI);
   app.listen(PORT, () => {
     console.log(
       `Server is running on http://localhost:${PORT}` +

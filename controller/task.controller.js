@@ -1,67 +1,48 @@
-const { Task } = require('../models/task.model');
+import Task from '../models/task.model.js';
 
-const getAllTasks = async (req, res) => {
+export const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
-    res.status(200).json(tasks);
+    const data = await Task.find({});
+    res.status(201).json(data);
   } catch (error) {
     res.status(500).json({ msg: error });
   }
 };
 
-const createTask = async (req, res) => {
-  try {
-    const task = await Task.create(req.body);
-    res.status(201).json({ task });
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
+export const createTask = async (req, res) => {
+  const task = await Task.create(req.body);
+  res.json(task);
 };
 
-const getTask = async (req, res) => {
+export const getTask = async (req, res) => {
   try {
-    const taskID = req.params.id;
-    const task = await Task.findById({ _id: taskID });
+    const { id: taskID } = req.params;
+    const task = await Task.findOne({ _id: taskID });
 
     if (!task) {
-      return res.status(404).json({ error: `No task with ${id} exist` });
+      return res.status(404).json({ msg: `No task with ID: ${taskID}` });
     }
-    res.status(201).json({ task });
-  } catch (error) {
-    res.status(500).json({ error: 'Invalid ID' });
-  }
-};
-
-const updateTasks = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const task = await Task.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!task) {
-      return res.status(404).json({ error: `No task with ID: ${id}` });
-    }
+    // normalize data by id;
     res.status(200).json(task);
   } catch (error) {
-    res.json({ msg: error });
+    res.status(500).json({ msg: error });
   }
 };
 
-const deleteTasks = async (req, res) => {
+export const updateTask = (req, res) => {
+  res.send('update task');
+};
+
+export const deleteTask = async (req, res) => {
   try {
-    const id = req.params.id;
-    const task = await Task.findByIdAndDelete(id);
-    console.log('Deleted successfully');
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
+    const { id: taskID } = req.params;
+    const task = await Task.findOneAndDelete({ _id: taskID });
 
-module.exports = {
-  getAllTasks,
-  createTask,
-  getTask,
-  updateTasks,
-  deleteTasks,
+    if (!task) {
+      return res.status(404).json({ msg: `No task with ID: ${taskID}` });
+    }
+    res.status(200).json({ task: null, status: 'success' });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };

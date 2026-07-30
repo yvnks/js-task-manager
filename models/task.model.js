@@ -1,25 +1,16 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const connectDB = async (url) => {
-  return mongoose.connect(url);
-};
-
-const TaskSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Enter a valid Name'],
-      trim: true,
-      maxlength: [20, 'Cannot be more than 20 Characters'],
-    },
-    completed: {
-      type: Boolean,
-      default: false,
-    },
+const TaskSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'You need to provide a valid name'],
+    trim: true,
+    max: [20, 'Cannot be more than 20 characters.'],
   },
-  { timestamps: true },
-);
+  completed: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-const Task = mongoose.model('Task', TaskSchema);
-
-module.exports = { connectDB, Task };
+export default mongoose.model('Task', TaskSchema);

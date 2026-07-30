@@ -1,8 +1,12 @@
 import Task from '../models/task.model.js';
 
-export const getAllTasks = async(req, res) => {
-  // const data = await Task
-  res.json();
+export const getAllTasks = async (req, res) => {
+  try {
+    const data = await Task.find({});
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 export const createTask = async (req, res) => {
@@ -11,10 +15,18 @@ export const createTask = async (req, res) => {
 };
 
 export const getTask = async (req, res) => {
-  const id = req.params.id;
-  const task = await Task.findById(id);
-  // normalize data by id;
-  res.json(task);
+  try {
+    const { id: taskID } = req.params;
+    const task = await Task.findOne({ _id: taskID });
+
+    if (!task) {
+      return res.status(404).json({ msg: `No task with ID: ${taskID}` });
+    }
+    // normalize data by id;
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 export const updateTask = (req, res) => {

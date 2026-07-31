@@ -3,6 +3,7 @@ import router from './routes/task.routes.js';
 import connectDB from './models/connect.models.js';
 import 'dotenv/config';
 import notFound from './middleware/404.middleware.js';
+import errorHandler from './middleware/errorHandler.middleware.js';
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use('/api/v1/tasks', router);
 
 // Custom 404 middleware
 app.use(notFound);
+app.use(errorHandler);
 
 init();

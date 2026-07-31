@@ -3,73 +3,45 @@ const loadingDOM = document.querySelector('.loading-text');
 const formDOM = document.querySelector('.task-form');
 const taskInputDOM = document.querySelector('.task-input');
 const formAlertDOM = document.querySelector('.form-alert');
+
 // Load tasks from /api/tasks
-// const showTasks = async () => {
-//   loadingDOM.style.visibility = 'visible';
-//   try {
-//     const {
-//       data: { tasks },
-//     } = await axios.get('/api/v1/tasks');
-//     if (tasks.length < 1) {
-//       tasksDOM.innerHTML = '<h5 class="empty-list">No tasks in your list</h5>';
-//       loadingDOM.style.visibility = 'hidden';
-//       return;
-//     }
-//     const allTasks = tasks
-//
-// <!-- edit link -->
-// <a href="task.html?id=${taskID}"  class="edit-link">
-// <i class="fas fa-edit"></i>
-// </a>
-// <!-- delete btn -->
-// <button type="button" class="delete-btn" data-id="${taskID}">
-// <i class="fas fa-trash"></i>
-// </button>
-// </div>
-// </div>`;
-//       })
-//       .join('');
-//     tasksDOM.innerHTML = allTasks;
-//   } catch (error) {
-//     console.log(error);
-//     tasksDOM.innerHTML =
-//       '<h5 class="empty-list">There was an error, please try later....</h5>';
-//   }
-//   loadingDOM.style.visibility = 'hidden';
-// };
+const showTasks = async () => {
+  loadingDOM.style.visibility = 'visible';
+  try {
+    const {
+      data: { tasks },
+    } = await axios.get('/api/v1/tasks');
+    if (tasks.length < 1) {
+      tasksDOM.innerHTML = '<h5 class="empty-list">No tasks in your list</h5>';
+      loadingDOM.style.visibility = 'hidden';
+      return;
+    }
+    const allTasks = tasks
 
-// showTasks();
+<!-- edit link -->
+<a href="task.html?id=${taskID}"  class="edit-link">
+<i class="fas fa-edit"></i>
+</a>
+<!-- delete btn -->
+<button type="button" class="delete-btn" data-id="${taskID}">
+<i class="fas fa-trash"></i>
+</button>
+</div>
+</div>`;
+      })
+      .join('');
+    tasksDOM.innerHTML = allTasks;
+  } catch (error) {
+    console.log(error);
+    tasksDOM.innerHTML =
+      '<h5 class="empty-list">There was an error, please try later....</h5>';
+  }
+  loadingDOM.style.visibility = 'hidden';
+};
 
-function loadProductsFromFetch() {
-  let html = '';
-  fetch('/api/v1/tasks/') // makes a get req by default
-    .then((response) => {
-      return response.json();
-    })
-    .then((tasks) => {
-      console.log(tasks);
-      task = JSON.parse(tasks).map((task) => {
-        html += `<div class="single-task ${task.completed && 'task-completed'}">
-                  <h5><span><i class="far fa-check-circle"></i></span>${task.name}</h5>
-                    <div class="task-links">
+showTasks();
 
-                      <!-- edit link -->
-                      <a href="task.html?id=${task._id}"  class="edit-link">
-                      <i class="fas fa-edit"></i>
-                      </a>
-                      <!-- delete btn -->
-                      <button type="button" class="delete-btn" data-id="${task._id}">
-                      <i class="fas fa-trash"></i>
-                      </button>
-                  </div>
-                </div>`;
-      });
-    });
-  console.log(html);
-  tasksDOM.innerHTML = html;
-}
 
-loadProductsFromFetch();
 // delete task /api/tasks/:id
 
 tasksDOM.addEventListener('click', async (e) => {

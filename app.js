@@ -2,6 +2,7 @@ import express from 'express';
 import router from './routes/task.routes.js';
 import connectDB from './models/connect.models.js';
 import 'dotenv/config';
+import notFound from './middleware/404.middleware.js';
 
 const app = express();
 
@@ -24,6 +25,6 @@ app.use(express.static('./public'));
 app.use('/api/v1/tasks', router);
 
 // Custom 404 middleware
-app.use()
+app.use(notFound);
 
 init();

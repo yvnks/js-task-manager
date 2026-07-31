@@ -17,8 +17,13 @@ const init = async (uri) => {
   });
 };
 
-init();
-
 // Set up middleware
 app.use(express.json());
+app.use(express.static('./public'));
+
 app.use('/api/v1/tasks', router);
+
+// Custom 404 middleware
+app.use()
+
+init();
